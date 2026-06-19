@@ -1,48 +1,49 @@
-// src/app/components/FeaturedBooks.tsx
-
 import Image from "next/image";
-import { getBooks } from "@/lib/data";
+import { getBooks } from "../lib/data";
 
 export default async function FeaturedBooks() {
   const books = await getBooks();
 
   return (
-    <section className="px-8 py-12">
-      <h2 className="text-3xl font-bold mb-8">
-        Staff Pick Highlights
-      </h2>
+    <section className="bg-[#f5f0e8] px-6 py-12">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-xl font-black uppercase tracking-widest text-stone-900 mb-8">
+          Staff Pick Highlights
+        </h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {books.map((book) => (
-          <div
-            key={book.id}
-            className="bg-white border rounded-xl p-4 shadow"
-          >
-            <Image
-              src={book.coverImageUrl}
-              alt={book.title}
-              width={180}
-              height={260}
-              className="mx-auto"
-            />
+        <div className="grid md:grid-cols-3 gap-6">
+          {books.map((book) => (
+            <div
+              key={book.id}
+              className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm flex flex-col"
+            >
+              <div className="flex justify-center mb-4">
+                <Image
+                  src={book.coverImageUrl}
+                  alt={book.title}
+                  width={160}
+                  height={230}
+                  className="rounded object-cover shadow"
+                />
+              </div>
 
-            <h3 className="font-bold mt-4">
-              {book.title}
-            </h3>
+              <h3 className="font-bold text-sm text-stone-900 mt-2">
+                {book.title}
+              </h3>
+              <p className="text-stone-400 text-xs mt-1">By {book.author}</p>
 
-            <p className="text-gray-500">
-              By {book.author}
-            </p>
+              <div className="flex gap-0.5 my-3 text-[#f5a623] text-sm">
+                {"★★★★★".split("").map((star, i) => (
+                  <span key={i}>{star}</span>
+                ))}
+              </div>
 
-            <div className="my-3">
-              ⭐⭐⭐⭐⭐
+              <button className="mt-auto w-full bg-[#2c4a2e] text-white text-xs font-bold py-2.5 rounded hover:bg-[#3a5c3c] transition-colors tracking-wide">
+                View Details
+              </button>
             </div>
-
-            <button className="w-full bg-green-900 text-white py-2 rounded">
-              View Details
-            </button>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
