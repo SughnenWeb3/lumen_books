@@ -48,7 +48,7 @@ const books: Book[] = [
     price: 28,
     description:
       'A retired sea captain receives a compass that only works after midnight, pointing not to north but to unfinished business. Her journey across coastal towns becomes a meditation on regret, redemption, and second chances.',
-    coverImageUrl: '/book1.jpeg',
+    coverImageUrl: '/book4.png',
     category: 'Fiction',
     createdAt: '2026-03-20',
     ratingsCount: 185,
@@ -61,7 +61,7 @@ const books: Book[] = [
     price: 35,
     description:
       'The final war between the Ember Throne and the Starlight Court threatens to consume the continent. A reluctant prince and a banished sorceress must forge an unlikely alliance to prevent annihilation. Epic fantasy at its finest.',
-    coverImageUrl: '/book2.jpeg',
+    coverImageUrl: '/book5.png',
     category: 'Fantasy',
     createdAt: '2026-04-01',
     ratingsCount: 420,
@@ -74,7 +74,7 @@ const books: Book[] = [
     price: 22,
     description:
       'In 2089, consciousness can be uploaded, copied, and sold. When a neural architect discovers a rogue consciousness living in the network, she must decide: is it a glitch, a ghost, or something entirely new? Hard sci-fi with a human heart.',
-    coverImageUrl: '/book3.jpeg',
+    coverImageUrl: '/book6.png',
     category: 'Science Fiction',
     createdAt: '2026-04-15',
     ratingsCount: 310,
@@ -87,7 +87,7 @@ const books: Book[] = [
     price: 18,
     description:
       "A food historian discovers her late grandmother's notebook containing a recipe said to evoke lost memories in anyone who tastes the dish. As she cooks her way through the pages, family secrets rise to the surface. A warm, rich literary novel.",
-    coverImageUrl: '/book1.jpeg',
+    coverImageUrl: '/book7.png',
     category: 'Literary Fiction',
     createdAt: '2026-05-01',
     ratingsCount: 275,
@@ -100,7 +100,7 @@ const books: Book[] = [
     price: 32,
     description:
       'Part travelogue, part history, this non-fiction masterpiece takes readers to twelve locations erased from modern maps — abandoned cities, sunken islands, and vanished kingdoms — uncovering the stories the world chose to forget.',
-    coverImageUrl: '/book2.jpeg',
+    coverImageUrl: '/book8.png',
     category: 'Non-Fiction',
     createdAt: '2026-05-20',
     ratingsCount: 190,
