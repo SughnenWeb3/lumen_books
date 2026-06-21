@@ -73,7 +73,7 @@ export default async function DashboardPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 font-semibold text-stone-900">
-                    ₦{book.price.toFixed(2)}
+                    ₦{book.price.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 text-sm text-stone-500">
                     {new Date(book.createdAt).toLocaleDateString()}
