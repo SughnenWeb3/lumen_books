@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function FeaturedAuthors() {
   return (
@@ -24,14 +24,16 @@ export default function FeaturedAuthors() {
             </p>
             <h2 className="text-white font-bold text-lg mb-2">Eliza Vance</h2>
             <p className="text-white/70 text-sm leading-relaxed max-w-md mb-3">
-              Eliza Vence is a perfectly oecried about initiarly rendecion, legible liliers,
-              and enhance thenoricst and successes and more.
+              Eliza Vance is the acclaimed author of &ldquo;The Silent
+              Forest&rdquo; and &ldquo;Echoes of Time.&rdquo; Her writing
+              blends literary elegance with gripping suspense, drawing readers
+              into worlds where nature and mystery intertwine.
             </p>
             <Link
-              href="/authors/eliza-vance"
+              href="/books?q=Eliza+Vance"
               className="text-white text-xs font-bold uppercase tracking-widest border-b border-white/60 pb-0.5 hover:border-white transition-colors"
             >
-              Learn More &gt;
+              View Her Books &gt;
             </Link>
           </div>
         </div>
