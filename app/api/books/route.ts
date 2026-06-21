@@ -1,0 +1,16 @@
+import { NextResponse } from 'next/server';
+import { getBooks } from '../../lib/data';
+
+export async function GET(request: Request) {
+  // A simple GET endpoint returning JSON of the catalog
+  const books = await getBooks();
+  
+  return NextResponse.json(
+    { 
+      success: true,
+      count: books.length, 
+      data: books 
+    },
+    { status: 200 }
+  );
+}
