@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lumen Books
 
-## Getting Started
+Lumen Books is a small online bookstore and seller dashboard I built to explore and demonstrate the different rendering and data-fetching patterns available in Next.js 15 (App Router). 
 
-First, run the development server:
+Instead of just building a standard app, I made sure every core Next.js feature was implemented where it practically makes sense.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## What's inside
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Here is a quick breakdown of how the different parts of the app are built:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **The Home Page (`/`)**: This is completely static for fast loading. It uses Incremental Static Regeneration (ISR) to grab fresh "featured books" every hour behind the scenes, so the site stays fast but up to date.
+- **The Catalog (`/books`)**: This page is fully dynamic (Server-Side Rendered). It reads search parameters directly from the URL to filter and sort books in real time.
+- **Book Details (`/books/[slug]`)**: These pages are pre-rendered at build time (SSG). If someone tries to view a book that was added after the build, it falls back to ISR to generate the page on the fly. I also added dynamic Open Graph tags here for SEO.
+- **Streaming & Suspense**: On the book detail page, the "Recommended for you" section takes a bit longer to load. Instead of making the user wait, the main page loads instantly and the recommendations stream in later with a loading skeleton.
+- **Authentication & Middleware**: The `/dashboard` route is protected. I set up Edge Middleware to check for an auth cookie—if you aren't logged in, it bounces you to the login page.
+- **Mutations & Server Actions**: The login form and the "Add New Book" form both use Server Actions. No API routes needed. When a new book is added, `revalidatePath` is triggered to instantly update the cache.
+- **API Routes**: I included a simple `/api/books` route handler just to show how to serve JSON data to external clients.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Running it locally
 
-## Learn More
+If you want to poke around the code or run it yourself:
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repo and install the dependencies:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Create a `.env.local` file in the root folder and add these variables:
+   ```env
+   NEXT_PUBLIC_SITE_NAME="Lumen Books"
+   AUTH_SECRET="put-any-random-string-here"
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Start the dev server:
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+You can view the site at `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Testing the dashboard
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you want to see the protected dashboard and try adding a book, go to `/login` and use these credentials:
+
+- **Username:** `admin`
+- **Password:** `password`
+
+## Tech Stack
+- Next.js 15 (App Router)
+- Tailwind CSS
+- Lucide React (Icons)
