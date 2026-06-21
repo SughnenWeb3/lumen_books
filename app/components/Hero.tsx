@@ -14,7 +14,7 @@ export default function Hero() {
            Discover a whole new world of reading experience
           </p>
           <Link
-            href="/shop"
+            href="/books"
             className="inline-block bg-[#2c4a2e] text-white text-xs font-bold tracking-widest uppercase px-6 py-3 rounded hover:bg-[#3a5c3c] transition-colors"
           >
             Browse Bestsellers
