@@ -150,7 +150,7 @@ export default async function BooksPage(props: Props) {
                     <span className="text-stone-500 text-xs px-2 py-1 bg-[#f5f0e8] rounded border border-stone-200">
                       {book.category}
                     </span>
-                    <span className="font-bold text-[#2c4a2e]">${book.price}</span>
+                    <span className="font-bold text-[#2c4a2e]">₦{book.price}</span>
                   </div>
                 </Link>
               ))}

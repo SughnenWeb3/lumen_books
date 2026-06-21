@@ -40,7 +40,7 @@ export default function NewBookPage() {
               </select>
             </div>
             <div>
-              <label htmlFor="price" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Price ($)</label>
+              <label htmlFor="price" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Price (₦)</label>
               <input type="number" step="0.01" id="price" name="price" required className="w-full border border-stone-300 rounded px-4 py-3 focus:outline-none focus:border-[#2c4a2e]" />
             </div>
           </div>

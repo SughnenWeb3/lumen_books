@@ -118,7 +118,7 @@ export default async function BookDetailPage({ params }: Props) {
           </p>
           <div className="flex items-center gap-4 mb-8">
             <div className="text-2xl font-bold text-[#2c4a2e]">
-              ${book.price.toFixed(2)}
+              ₦{book.price.toFixed(2)}
             </div>
             <div className="flex items-center gap-2">
               <div className="flex gap-0.5 text-[#f5a623] text-sm">
