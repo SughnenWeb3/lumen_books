@@ -1,11 +1,5 @@
-// app/lib/data.ts
-
 import type { Book } from './types';
-
 const SIMULATED_DELAY = 500;
-
-// ── Seed data ────────────────────────────────────────────────────────
-// Mutable so the /dashboard/new Server Action can push to it at runtime.
 const books: Book[] = [
   {
     id: '1',
@@ -138,58 +132,37 @@ const books: Book[] = [
     ratingsCount: 205,
   },
 ];
-
-// ── Helpers ──────────────────────────────────────────────────────────
-
 async function delay(): Promise<void> {
   await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
 }
-
-/** Return every book in the store. */
 export async function getBooks(): Promise<Book[]> {
   await delay();
   return books;
 }
-
-/** Return a single book by slug, or null if not found. */
 export async function getBookBySlug(slug: string): Promise<Book | null> {
   await delay();
   return books.find((b) => b.slug === slug) ?? null;
 }
-
-/** Return all unique category names. */
 export async function getCategories(): Promise<string[]> {
   await delay();
   return [...new Set(books.map((b) => b.category))];
 }
-
-/** Featured / bestselling — top N by ratingsCount. */
 export async function getFeaturedBooks(limit = 3): Promise<Book[]> {
   await delay();
   return [...books].sort((a, b) => b.ratingsCount - a.ratingsCount).slice(0, limit);
 }
-
-/**
- * Catalog query — filter by category and sort.
- * Used by the SSR `/books` route.
- */
 export async function searchBooks(params: {
   category?: string;
   sort?: string;
   q?: string;
 }): Promise<Book[]> {
   await delay();
-
   let result = [...books];
-
-  // Filter by category
   if (params.category) {
     result = result.filter(
       (b) => b.category.toLowerCase() === params.category!.toLowerCase()
     );
   }
-
-  // Filter by search query
   if (params.q) {
     const query = params.q.toLowerCase();
     result = result.filter(
@@ -198,8 +171,6 @@ export async function searchBooks(params: {
         b.author.toLowerCase().includes(query)
     );
   }
-
-  // Sort
   switch (params.sort) {
     case 'price-asc':
       result.sort((a, b) => a.price - b.price);
@@ -217,46 +188,29 @@ export async function searchBooks(params: {
       result.sort((a, b) => b.ratingsCount - a.ratingsCount);
       break;
     default:
-      // no specific sort — keep insertion order
       break;
   }
-
   return result;
 }
-
-/**
- * Recommended books — returns books in the same category, excluding the
- * current one.  Intentionally slow (2 s) so the Suspense boundary is visible.
- */
 export async function getRecommendedBooks(
   currentSlug: string,
   limit = 3
 ): Promise<Book[]> {
-  // Extra-long delay to demonstrate streaming / Suspense
   await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const current = books.find((b) => b.slug === currentSlug);
   if (!current) return [];
-
   return books
     .filter((b) => b.slug !== currentSlug && b.category === current.category)
     .slice(0, limit);
 }
-
-/**
- * Add a book — used by the /dashboard/new Server Action.
- * Returns the newly created book.
- */
 export async function addBook(
   data: Omit<Book, 'id' | 'slug' | 'createdAt' | 'ratingsCount'>
 ): Promise<Book> {
   await delay();
-
   const slug = data.title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
-
   const newBook: Book = {
     ...data,
     id: String(books.length + 1),
@@ -264,13 +218,9 @@ export async function addBook(
     createdAt: new Date().toISOString().split('T')[0],
     ratingsCount: 0,
   };
-
   books.push(newBook);
   return newBook;
 }
-
-/** Return all slugs — used by generateStaticParams. */
 export async function getAllSlugs(): Promise<string[]> {
-  // No delay here: this runs at build time
   return books.map((b) => b.slug);
 }

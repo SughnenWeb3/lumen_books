@@ -1,12 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
 export default function FeaturedAuthors() {
   return (
     <section className="bg-[#f5f0e8] px-6 py-8">
       <div className="max-w-6xl mx-auto">
         <div className="bg-[#2c4a2e] rounded-xl overflow-hidden flex items-center gap-6 px-8 py-6">
-          {/* Author Photo */}
           <div className="shrink-0">
             <Image
               src="/featuredauthor.jpeg"
@@ -16,8 +14,6 @@ export default function FeaturedAuthors() {
               className="rounded-full object-cover w-[90px] h-[90px]"
             />
           </div>
-
-          {/* Text */}
           <div>
             <p className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-1">
               Featured Author

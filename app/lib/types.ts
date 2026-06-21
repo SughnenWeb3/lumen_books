@@ -1,5 +1,3 @@
-// app/lib/types.ts
-
 export interface Book {
   id: string;
   slug: string;

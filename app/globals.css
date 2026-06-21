@@ -1,6 +1,4 @@
 @import "tailwindcss";
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'); */
-
 :root {
   --background: #f5f0e8;
   --foreground: #1a1a1a;
@@ -11,13 +9,11 @@
   --border: #e2dbd0;
   --gold: #f5a623;
 }
-
 body {
   background: var(--cream);
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
 }
-
 * {
   box-sizing: border-box;
 }

@@ -4,35 +4,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getBookBySlug, getAllSlugs, getRecommendedBooks } from '../../lib/data';
-
-// Keep pages static, but allow new routes to be generated and cached (ISR)
 export const revalidate = 3600;
 export const dynamicParams = true;
-
-// Define params as a Promise for Next.js 15+ compatibility
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-// 1. generateStaticParams pre-renders known books at build time (SSG)
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
   return slugs.map((slug) => ({
     slug,
   }));
 }
-
-// 2. generateMetadata dynamically generates <title> and Open Graph tags per book
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const book = await getBookBySlug(slug);
-
   if (!book) {
     return {
       title: 'Book Not Found',
     };
   }
-
   return {
     title: book.title,
     description: book.description,
@@ -43,13 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
-
-// 3. Recommended Books Component (Slow fetch to demonstrate Suspense/Streaming)
 async function RecommendedBooks({ slug }: { slug: string }) {
   const recommendations = await getRecommendedBooks(slug, 3);
-
   if (recommendations.length === 0) return null;
-
   return (
     <div className="mt-16 pt-12 border-t border-stone-200">
       <h2 className="text-lg font-black uppercase tracking-widest text-stone-900 mb-6">
@@ -81,8 +67,6 @@ async function RecommendedBooks({ slug }: { slug: string }) {
     </div>
   );
 }
-
-// 4. Skeleton Fallback for the Recommended Books section
 function RecommendedSkeleton() {
   return (
     <div className="mt-16 pt-12 border-t border-stone-200">
@@ -99,20 +83,15 @@ function RecommendedSkeleton() {
     </div>
   );
 }
-
-// 5. Main Page Component
 export default async function BookDetailPage({ params }: Props) {
   const { slug } = await params;
   const book = await getBookBySlug(slug);
-
   if (!book) {
-    notFound(); // Triggers the nearest not-found.tsx
+    notFound(); 
   }
-
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
       <div className="flex flex-col md:flex-row gap-12">
-        {/* Left: Book Cover */}
         <div className="w-full md:w-1/3 shrink-0">
           <div className="bg-white p-4 border border-stone-200 rounded-xl shadow-sm flex justify-center">
             <Image
@@ -125,22 +104,18 @@ export default async function BookDetailPage({ params }: Props) {
             />
           </div>
         </div>
-
-        {/* Right: Book Info */}
         <div className="flex-1">
           <div className="mb-2">
             <span className="text-[#2c4a2e] text-xs font-bold uppercase tracking-widest border border-[#2c4a2e]/20 bg-[#2c4a2e]/5 px-2 py-1 rounded">
               {book.category}
             </span>
           </div>
-
           <h1 className="text-4xl font-black text-stone-900 mb-2 leading-tight">
             {book.title}
           </h1>
           <p className="text-stone-500 text-lg mb-6">
             By <span className="font-semibold text-stone-700">{book.author}</span>
           </p>
-
           <div className="flex items-center gap-4 mb-8">
             <div className="text-2xl font-bold text-[#2c4a2e]">
               ${book.price.toFixed(2)}
@@ -156,18 +131,14 @@ export default async function BookDetailPage({ params }: Props) {
               </span>
             </div>
           </div>
-
           <div className="prose prose-stone max-w-none mb-8">
             <p className="text-stone-600 leading-relaxed">{book.description}</p>
           </div>
-
           <button className="bg-[#2c4a2e] text-white font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#3a5c3c] transition-colors w-full sm:w-auto">
             Add to Cart
           </button>
         </div>
       </div>
-
-      {/* Streaming Section wrapped in Suspense */}
       <Suspense fallback={<RecommendedSkeleton />}>
         <RecommendedBooks slug={book.slug} />
       </Suspense>

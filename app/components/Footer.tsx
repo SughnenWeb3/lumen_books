@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 function InstagramIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -7,7 +6,6 @@ function InstagramIcon() {
     </svg>
   );
 }
-
 function XIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -15,7 +13,6 @@ function XIcon() {
     </svg>
   );
 }
-
 function FacebookIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -23,15 +20,11 @@ function FacebookIcon() {
     </svg>
   );
 }
-
 export default function Footer() {
   return (
     <footer className="bg-[#f5f0e8] border-t border-stone-200 mt-4">
       <div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        
         <p className="text-stone-500 text-xs">© Copyright Lumen Books</p>
-
-      
         <div className="flex items-center gap-4 text-stone-500">
           <Link href="https://instagram.com" aria-label="Instagram" className="hover:text-[#2c4a2e] transition-colors">
             <InstagramIcon />
@@ -43,8 +36,6 @@ export default function Footer() {
             <FacebookIcon />
           </Link>
         </div>
-
-        {/* Legal Links */}
         <div className="flex items-center gap-4">
           {["Terms", "Privacy", "FAQ"].map((item) => (
             <Link

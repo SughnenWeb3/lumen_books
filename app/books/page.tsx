@@ -1,38 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { searchBooks, getCategories } from '../lib/data';
-
-// Note: No export const dynamic = 'force-dynamic' is needed here because 
-// reading the `searchParams` promise at request time automatically opts 
-// this route into dynamic rendering (SSR).
-
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
-
 export default async function BooksPage(props: Props) {
-  // Await searchParams per Next.js 15+ async request APIs
   const searchParams = await props.searchParams;
-
-  // Extract query params securely
   const category = typeof searchParams.category === 'string' ? searchParams.category : undefined;
   const sort = typeof searchParams.sort === 'string' ? searchParams.sort : undefined;
   const q = typeof searchParams.q === 'string' ? searchParams.q : undefined;
-
-  // Fetch data in parallel for performance (simulated)
   const [books, categories] = await Promise.all([
     searchBooks({ category, sort, q }),
     getCategories(),
   ]);
-
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-black uppercase tracking-widest text-stone-900 mb-8">
         Catalog
       </h1>
-
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar Filters */}
         <aside className="w-full md:w-64 shrink-0">
           <div className="bg-white border border-stone-200 rounded-xl p-6 mb-6">
             <h2 className="font-bold uppercase tracking-wider text-xs mb-4">Categories</h2>
@@ -61,7 +47,6 @@ export default async function BooksPage(props: Props) {
               ))}
             </ul>
           </div>
-
           <div className="bg-white border border-stone-200 rounded-xl p-6">
             <h2 className="font-bold uppercase tracking-wider text-xs mb-4">Sort By</h2>
             <ul className="space-y-3">
@@ -123,15 +108,12 @@ export default async function BooksPage(props: Props) {
             </ul>
           </div>
         </aside>
-
-        {/* Main Content */}
         <main className="flex-1">
           {q && (
             <p className="mb-6 text-stone-600">
               Showing results for: <strong className="text-stone-900">&quot;{q}&quot;</strong>
             </p>
           )}
-
           {books.length === 0 ? (
             <div className="bg-white border border-stone-200 rounded-xl p-12 text-center">
               <h3 className="text-lg font-bold text-stone-900 mb-2">No books found</h3>
@@ -160,12 +142,10 @@ export default async function BooksPage(props: Props) {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-
                   <h3 className="font-bold text-sm text-stone-900 mt-2 line-clamp-1">
                     {book.title}
                   </h3>
                   <p className="text-stone-400 text-xs mt-1">By {book.author}</p>
-
                   <div className="mt-auto pt-4 flex items-center justify-between">
                     <span className="text-stone-500 text-xs px-2 py-1 bg-[#f5f0e8] rounded border border-stone-200">
                       {book.category}
